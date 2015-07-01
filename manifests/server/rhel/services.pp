@@ -1,3 +1,4 @@
+# Configures NFS server services
 class nfs::server::rhel::services (
     $ensure     = running,
     $enable     = true,
@@ -5,12 +6,12 @@ class nfs::server::rhel::services (
 ) {
 
     require portmap
-   
+
     if $configonly == false {
         case $::operatingsystemmajrelease {
             '7': {
                 $nfs_service = 'nfs-server'
-                $nfs_lock_service = 'nfs-lock'
+                $nfs_lock_service = 'rpc-statd'
             }
             default: {
                 $nfs_service = 'nfs'
